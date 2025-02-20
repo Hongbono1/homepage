@@ -1,15 +1,22 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🏍️ 배달 라이더 광고</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen flex flex-col items-center">
 
-  <!-- Header 로드 -->
-  <div id="header" class="w-full mb-6"></div>
+  <!-- PHP로 헤더 로드 -->
+  <?php include 'components/header.php'; ?>
 
   <section class="text-center mb-8">
     <h2 class="text-4xl font-extrabold text-green-700">🏍️ 배달 라이더 광고</h2>
@@ -17,7 +24,8 @@
   </section>
 
   <!-- 배달 라이더 섹션 (전체 영역) -->
-  <section id="riderSection" class="bg-white border-2 border-gray-300 rounded-lg p-6 mt-8 shadow relative w-full max-w-6xl px-4">
+  <section id="riderSection"
+    class="bg-white border-2 border-gray-300 rounded-lg p-6 mt-8 shadow relative w-full max-w-6xl px-4">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-3xl font-bold">가장 핫한 배달 라이더</h2>
       <a href="#" class="text-blue-500 text-lg font-semibold hover:underline transition">+더보기</a>
@@ -26,52 +34,13 @@
     <div id="riderList"></div>
   </section>
 
-  <!-- Footer 로드 -->
-  <div id="footer" class="w-full mt-20"></div>
+  <!-- PHP로 모달 로드 -->
+  <?php include 'components/modal.php'; ?>
 
-  <!-- 모달을 로드할 컨테이너 -->
-  <div id="modal-container"></div>
+  <!-- PHP로 푸터 로드 -->
+  <?php include 'components/footer.php'; ?>
 
   <script>
-    /***************** Header & Footer 로드 *****************/
-    fetch("components/header.html")
-      .then(response => response.text())
-      .then(data => { document.getElementById("header").innerHTML = data; })
-      .catch(error => console.error("Header 로드 실패:", error));
-
-    fetch("components/footer.html")
-      .then(response => response.text())
-      .then(data => { document.getElementById("footer").innerHTML = data; })
-      .catch(error => console.error("Footer 로드 실패:", error));
-
-    /***************** 기존 모달 삭제 (충돌 방지) *****************/
-    const existingModal = document.querySelector("#commonModal");
-    if (existingModal) {
-      existingModal.remove();
-      console.log("기존 모달 삭제 완료 ✅");
-    }
-
-    /***************** 모달 HTML & JS 로드 *****************/
-    // deliveryrider.html에서 모달은 public/modal 폴더에 있으므로,
-    // 상대경로 "modal/modal.html"과 "modal/modal.js"를 사용
-    fetch("modal/modal.html")
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById("modal-container").innerHTML = html;
-        const script = document.createElement("script");
-        script.src = "modal/modal.js";
-        script.onload = function() {
-          console.log("modal.js 로드 완료 ✅");
-          if (window.populateModal) {
-            console.log("populateModal 함수 정상 로드 ✅");
-          } else {
-            console.error("populateModal 함수 로드 실패 ❌");
-          }
-        };
-        document.body.appendChild(script);
-      })
-      .catch(error => console.error("modal.html 로드 실패:", error));
-
     /***************** 배달 라이더 데이터 생성 *****************/
     const riders = Array.from({ length: 8 }, (_, i) => ({
       name: `🏍️ Rider ${i + 1}`,
@@ -119,8 +88,8 @@
     /***************** 그룹 데이터 분할 및 배치 *****************/
     const topRiders = riders.slice(0, 4);     // 상단 4명
     const bottomRiders = riders.slice(4, 8);    // 하단 4명
-    const groupLeft = [ topRiders[0], topRiders[1], bottomRiders[0], bottomRiders[1] ];
-    const groupRight = [ topRiders[2], topRiders[3], bottomRiders[2], bottomRiders[3] ];
+    const groupLeft = [topRiders[0], topRiders[1], bottomRiders[0], bottomRiders[1]];
+    const groupRight = [topRiders[2], topRiders[3], bottomRiders[2], bottomRiders[3]];
 
     const groupContainer = document.createElement("div");
     groupContainer.className = "flex flex-row gap-6 w-full";
@@ -172,4 +141,5 @@
     }, 300);
   </script>
 </body>
+
 </html>
