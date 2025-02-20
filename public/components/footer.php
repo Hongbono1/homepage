@@ -1,6 +1,6 @@
-<!-- footer.php -->
-<footer class="bg-gradient-to-r from-purple-300 to-blue-300 text-black py-8">
-  <div class="max-w-screen-2xl mx-auto px-4 sm:px-8">
+<!-- components/footer.php -->
+<footer class="bg-gradient-to-r from-purple-300 to-blue-300 text-black py-8 mt-16">
+  <div class="max-w-screen-2xl w-full mx-auto px-4 sm:px-8">
     <!-- 상단 부분: 회사 정보, 고객 지원, 팔로우 -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm sm:text-base">
       <!-- 회사 정보 -->
