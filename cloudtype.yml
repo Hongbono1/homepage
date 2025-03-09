@@ -1,0 +1,17 @@
+app: 
+  name: my-project
+  type: php
+
+build: 
+  cmds:
+    - composer install
+    - chmod -R 777 public
+
+run: 
+  cmds:
+    - php -S 0.0.0.0:8000 -t public
+  port: 8000
+
+mounts:
+  - name: storage
+    path: /storage
